@@ -1,0 +1,24 @@
+package se.itu.game.cave;
+
+public abstract class RoomRule {
+
+  protected String creatureDescription;
+  protected Room room;
+  
+  public RoomRule(Room room, String creatureDescription) {
+    this.room = room;
+    this.creatureDescription = creatureDescription;
+  }
+
+  public abstract void apply();
+
+  public void changeCreatureDescription(String newDescription) {
+    creatureDescription = newDescription;
+  }
+  
+  public String creatureDescription() {
+    apply();
+    return creatureDescription;
+  }
+  
+}
