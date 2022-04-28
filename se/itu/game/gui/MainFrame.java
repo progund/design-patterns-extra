@@ -2,18 +2,17 @@ package se.itu.game.gui;
 
 import static se.itu.game.cave.Room.Direction;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.*;
 import se.itu.game.cave.Player;
 import se.itu.game.cave.Room;
 import se.itu.game.cave.Thing;
 import se.itu.game.cave.init.CaveInitializer;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import javax.swing.*;
 
 public class MainFrame {
   private JFrame mainFrame;
@@ -44,7 +43,8 @@ public class MainFrame {
   
   private class ThingRenderer<Thing> implements ListCellRenderer<Thing> {
     
-    protected DefaultListCellRenderer defaultLCR = new DefaultListCellRenderer();
+    protected DefaultListCellRenderer defaultLCR =
+        new DefaultListCellRenderer();
 
     public Component getListCellRendererComponent(JList<? extends Thing> list,
                                                   Thing thing,
@@ -75,12 +75,12 @@ public class MainFrame {
     caveInit = CaveInitializer.getInstance();
     caveInit.initAll();
     player = Player.getInstance();
-    mainFrame    = new JFrame("Cave game");
+    mainFrame = new JFrame("Cave game");
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     northButton = new JButton("NORTH");
     southButton = new JButton("SOUTH");
-    eastButton  = new JButton("EAST");
-    westButton  = new JButton("WEST");
+    eastButton = new JButton("EAST");
+    westButton = new JButton("WEST");
     /* A map with directions as keys and the nav buttons as values
      * used for looping through the buttons and enable/disable them
      */
@@ -90,9 +90,9 @@ public class MainFrame {
     buttonMap.put(Direction.EAST, eastButton);
     buttonMap.put(Direction.WEST, westButton);
     
-    roomInfo    = new JTextArea(20,60);
-    messages    = new JLabel();
-    top         = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    roomInfo = new JTextArea(20,60);
+    messages = new JLabel();
+    top = new JPanel(new FlowLayout(FlowLayout.LEADING));
     navigationPanel = new JPanel();
     centerPanel = new JPanel();
     thingsPanel = new JPanel();
@@ -153,9 +153,9 @@ public class MainFrame {
     //}
     
     // Remove the following statement when you're done:
-    messages
-      .setText(player.currentRoom().things().size() != 0 ? "There are things here!" +
-               player.currentRoom().things() : "No things");
+    messages.setText(player.currentRoom().things().size() != 0
+               ? "There are things here!"
+               + player.currentRoom().things() : "No things");
   }
   
   private void layoutComponents() {
@@ -170,13 +170,13 @@ public class MainFrame {
     navigationPanel.add(southButton);
     navigationPanel.add(new JPanel());    
     top.add(navigationPanel);
-    JScrollPane inventoryScroll = new JScrollPane(inventory);
-    JScrollPane roomThingsScroll = new JScrollPane(roomThings);
     inventoryPanel.setLayout(new BorderLayout());
     thingsPanel.setLayout(new BorderLayout());
     inventoryPanel.add(inventoryLabel, BorderLayout.NORTH);
+    JScrollPane inventoryScroll = new JScrollPane(inventory);
     inventoryPanel.add(inventoryScroll, BorderLayout.CENTER);
     thingsPanel.add(thingsLabel, BorderLayout.NORTH);
+    JScrollPane roomThingsScroll = new JScrollPane(roomThings);
     thingsPanel.add(roomThingsScroll, BorderLayout.CENTER);
     listPanel.add(inventoryPanel);
     listPanel.add(thingsPanel);
@@ -195,15 +195,15 @@ public class MainFrame {
   private void addListeners() {
     Room currentRoom = player.currentRoom();
     for (Direction dir : Direction.values()) {
-      buttonMap.get(dir).addActionListener( (event) -> {
-          try {
-            player.go(dir);
-            debug(dir + " button pressed");
-            updateGui();
-          } catch (RuntimeException e) {
-            messages.setText("Bad direction - shouldn't happen.");
-          }
-        });
+      buttonMap.get(dir).addActionListener((event) -> {
+        try {
+          player.go(dir);
+          debug(dir + " button pressed");
+          updateGui();
+        } catch (RuntimeException e) {
+          messages.setText("Bad direction - shouldn't happen.");
+        }
+      });
     }
     /*
     // Alternatively, you could add listeners to
@@ -242,7 +242,8 @@ public class MainFrame {
       UIManager.setLookAndFeel((LookAndFeel)Class
                                .forName("com.sun.java.swing.plaf.gtk.GTKLookAndFeel")
                                .newInstance());
-    } catch (Exception ignore) {}
+    } catch (Exception ignore) {
+    }
   }
 
   private class RoomThingsListener extends MouseAdapter {
