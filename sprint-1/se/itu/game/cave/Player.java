@@ -1,13 +1,12 @@
 package se.itu.game.cave;
 
+import java.util.ArrayList;
+import java.util.List;
 import se.itu.game.cave.Room.Direction;
 import se.itu.game.cave.init.CaveInitializer;
 
-import java.util.List;
-import java.util.ArrayList;
-
 /**
- * Represents a Player in the game
+ * Represents a Player in the game.
  */
 public class Player /* does not extend People */ {
 
@@ -35,7 +34,8 @@ public class Player /* does not extend People */ {
   /**
    * Drop down a thing in the current room and remove it from the inventory.
    * @param thing the Thing to drop down.
-   * @throws IllegalArgumentException if the Thing to remove is not present in the inventory.
+   * @throws IllegalArgumentException if the Thing to remove is not
+             present in the inventory.
    */
   public void dropThing(Thing thing) {
     if (!inventory.remove(thing)) {
@@ -45,7 +45,7 @@ public class Player /* does not extend People */ {
   }
     
   /**
-'   * Return the player's inventory
+   * Return the player's inventory.
    * @return the inventory
    */
   public List<Thing> inventory() {
@@ -54,6 +54,7 @@ public class Player /* does not extend People */ {
     
 
   /**
+   * Factory method for the singleton instance.
    * @return the one and only instance of Player.
    */
   public static Player getInstance() {
@@ -74,24 +75,25 @@ public class Player /* does not extend People */ {
   /**
    * Moves the player in given direction.
    * @param direction the direction in which to move the player.
-   * @throws IllegalArgumentException - if the room in direction does not exist.
+   * @throws IllegalArgumentException - if the room in direction does not
+             exist.
    */
   public void go(Direction direction) {
     Room newRoom = currentRoom.getRoom(direction);
     if (newRoom == null) {
       // TODO: write new exception: IllegalMoveException
-      throw new IllegalArgumentException("Room not existing in direction:  " + direction);
+      throw new IllegalArgumentException("Room not existing in direction:  "
+                                         + direction);
     }
     currentRoom = newRoom;
   }
         
   /**
    * Returns a String representation of the player<br>
-   * on the form currentRoom: [the room to String] inventory: [the inventory]
+   * on the form currentRoom: [the room to String] inventory: [the inventory].
    * @return a String representation of the player
    */
   public String toString() {
-    return "currentRoom: " + currentRoom + 
-      " inventory: " + inventory ;
+    return "currentRoom: " + currentRoom + " inventory: " + inventory;
   }
 }
