@@ -1,8 +1,5 @@
 package se.itu.game.cave.init;
 
-import se.itu.game.cave.Room;
-import se.itu.game.cave.Thing;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import se.itu.game.cave.Room;
+import se.itu.game.cave.Thing;
 
 /**
  * Initializes the cave of rooms from the database. This class
@@ -18,10 +17,10 @@ import java.util.TreeMap;
 public class CaveInitializer {
 
   private static final String EVERYTHING_QUERY =
-    "SELECT cave.roomid, north, south, east, west, line, linenr, thing " +
-    "FROM cave LEFT JOIN lines " +
-    "ON cave.roomid=lines.roomid "+
-    "LEFT JOIN things ON cave.roomid=things.roomid;";
+      "SELECT cave.roomid, north, south, east, west, line, linenr, thing "
+      + "FROM cave LEFT JOIN lines "
+      + "ON cave.roomid=lines.roomid "
+      + "LEFT JOIN things ON cave.roomid=things.roomid;";
   private DbUtil database = DbUtil.getInstance();
   private Map<Integer, Room> cave;
   private static CaveInitializer instance;
@@ -37,7 +36,7 @@ public class CaveInitializer {
     return instance;
   }
   
-  private static class DbRoom{
+  private static class DbRoom {
     private int id;
     private int north;
     private int south;
@@ -47,12 +46,12 @@ public class CaveInitializer {
     private Thing thing;
 
     public DbRoom(int id, int north, int south, int east, int west, String text, Thing thing) {
-      this.id    = id;
+      this.id = id;
       this.north = north;
       this.south = south;
-      this.east  = east;
-      this.west  = west;
-      this.text  = text;
+      this.east = east;
+      this.west = west;
+      this.text = text;
       this.thing = thing;
     }
     
@@ -135,11 +134,11 @@ public class CaveInitializer {
     int currentRoom;
     StringBuilder line = new StringBuilder();
     DbRoom room;
-    try{
+    try {
       ResultSet rs = database.query(EVERYTHING_QUERY);
       while (rs.next()) {
         currentRoom = rs.getInt("roomid");
-        if(currentRoom == lastRoom) {
+        if (currentRoom == lastRoom) {
           line.append("\n").append(rs.getString("line"));
         } else {
           line = new StringBuilder(rs.getString("line"));
@@ -215,7 +214,7 @@ public class CaveInitializer {
       cave.put(roomId, currentRoom);
     }
     // Add exits to the rooms
-    for (Integer roomID : rooms.keySet()){
+    for (Integer roomID : rooms.keySet()) {
       Room thisRoom = cave.get(roomID);
       room = rooms.get(roomID);
       Room northRoom = cave.get(room.north());
