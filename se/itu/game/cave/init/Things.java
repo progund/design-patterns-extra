@@ -1,9 +1,8 @@
 package se.itu.game.cave.init;
 
-import se.itu.game.cave.Thing;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import se.itu.game.cave.Thing;
 
 /**
  * <p>Utility class which keeps tracks of the Things in the game.
@@ -26,7 +25,7 @@ public class Things {
    * Returns a reference to the given thing.
    * @param name - The string corresponding to the Thing's name
    * @return A reference to the thing corresponding to the given name, or null
-   * if no such Thing exists.
+   *         if no such Thing exists.
    */
   public static Thing get(String name) {
     return things.get(name);
